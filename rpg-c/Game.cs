@@ -56,7 +56,7 @@ while (wentContinue){
                     { "min", min.ToString() },
                     { "max", max.ToString() }
                 };
-                Console.WriteLine(lang.Get("replyFalse", CreerVariables()));
+                Console.WriteLine(lang.Get("replyFalse", variables));
             }
         }
 
