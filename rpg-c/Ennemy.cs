@@ -14,7 +14,7 @@ public class Ennemy
     private void Gobelin()
     {
         nom = "Gobelin";
-        vie = 20;
+        vie = 18;
         degats = 3;
         expDrop = 5;
     }

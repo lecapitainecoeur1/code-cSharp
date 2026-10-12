@@ -77,8 +77,8 @@ while (wentContinue){
         Console.WriteLine(lang.Get("playerStats", variables));
         Console.WriteLine(lang.Get("ennemiStats", variables));
 
-        
         bool bloque = false;
+        bool strongEnnemyAttack = false;
 
         void CheckVie()
         {
@@ -86,7 +86,7 @@ while (wentContinue){
             {
                 Console.WriteLine(lang.Get("lose"));
                 finCombat = true;
-                joueur1.vie = joueur1.maxVie;
+                joueur1 = new Joueur(20, 4, 0, 10, 1, 0);
             }
             else if (!ennemy.enVie())
             {
@@ -97,10 +97,18 @@ while (wentContinue){
         }
         void PlayerTurn()
         {
+            if (rnd.Next(0, 100) < 60)
+            {
+                strongEnnemyAttack = true;
+                Console.WriteLine(lang.Get("strongEnnemyAttack"));
+            }
+
             Console.WriteLine(lang.Get("turn", variables));
-            int degats = joueur1.force * 150/100;
+            
+            int degats = joueur1.force * 200/100;
             int chanceFuite = rnd.Next(0, 2);
-            int choixAction = LireEntier(lang.Get("choice"), 1, 3);
+            int choixAction = LireEntier(lang.Get("choice"), 1, 4);
+
             variables = new Dictionary<string, string>
                 {
                     { "joueur1.degats", joueur1.force.ToString() },
@@ -115,10 +123,11 @@ while (wentContinue){
                 {
                     ennemy.vie -= joueur1.force;
                     Console.WriteLine(lang.Get("player_attack", variables));
+                    CheckVie();
                 }
                 else if (choixAttack == 2)
                 {
-                    if (rnd.Next(0, 100) <= 70)
+                    if (rnd.Next(0, 100) < 70)
                     {
                         
                         ennemy.vie -= degats;
@@ -148,13 +157,29 @@ while (wentContinue){
                     Console.WriteLine(lang.Get("fuiteFail"));
                 }
             }
+            else if (choixAction == 4){
+                joueur1.exp = joueur1.lvlCapExp;
+                joueur1.GagnerExp(0);
+            }
         }
         void EnnemyTurn()
         {
             if (bloque)
             {
-                joueur1.vie -= ennemy.degats * 50/100;
+                if (strongEnnemyAttack)
+                {
+                    joueur1.vie -= (int)(ennemy.degats * 1.5 * 50 / 100);
+                }
+                else
+                {
+                    joueur1.vie -= ennemy.degats * 50/100;
+                }
                 bloque = false;
+            }
+            else if (strongEnnemyAttack)
+            {
+                joueur1.vie -= (int)(ennemy.degats * 1.5);
+                strongEnnemyAttack = false;
             }
             else {joueur1.vie -= ennemy.degats;}
             Console.WriteLine(lang.Get("ennemie_attack", variables));

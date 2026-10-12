@@ -40,7 +40,7 @@ public class Joueur
         lvl += 1;
         force += 1;
         maxVie += 2;
-        lvlCapExp += 10;
+        lvlCapExp = lvlCapExp * 50/100;
         niveauSuivant += 1;
         expAvantLvlUp = lvlCapExp - exp;
     }

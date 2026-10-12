@@ -10,6 +10,7 @@
     "blocage": "Tu arrive a bloquer une partie des degats",
     "player_attack": "Tu frappe {Ennemy.nom} il perd de la vie",
     "ennemie_attack": "{Ennemy.nom} te frappe",
+    "strongEnnemyAttack": "l'ennemie prepare une attaque puissante",
     "attackFail": "tu n'a pas reussi a attaquer...",
     "fuiteFail": "tu n'a pas reussi a fuir...",
 
