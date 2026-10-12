@@ -43,5 +43,6 @@ public class Joueur
         lvlCapExp = lvlCapExp * 50/100;
         niveauSuivant += 1;
         expAvantLvlUp = lvlCapExp - exp;
+        vie = maxVie;
     }
 }

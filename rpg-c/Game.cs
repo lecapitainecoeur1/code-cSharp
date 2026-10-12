@@ -97,7 +97,7 @@ while (wentContinue){
         }
         void PlayerTurn()
         {
-            if (rnd.Next(0, 100) < 60)
+            if (rnd.Next(0, 100) < 40)
             {
                 strongEnnemyAttack = true;
                 Console.WriteLine(lang.Get("strongEnnemyAttack"));
