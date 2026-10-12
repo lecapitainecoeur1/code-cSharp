@@ -29,6 +29,7 @@ public class Joueur
     public void GagnerExp(int experience)
     {
         exp += experience;
+        expAvantLvlUp = lvlCapExp - exp;
         while (exp >= lvlCapExp)
         {
             LvlUp();
@@ -40,7 +41,7 @@ public class Joueur
         lvl += 1;
         force += 1;
         maxVie += 2;
-        lvlCapExp = lvlCapExp * 50/100;
+        lvlCapExp += lvlCapExp *  50/100;
         niveauSuivant += 1;
         expAvantLvlUp = lvlCapExp - exp;
         vie = maxVie;

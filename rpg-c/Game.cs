@@ -56,26 +56,35 @@ while (wentContinue){
                     { "min", min.ToString() },
                     { "max", max.ToString() }
                 };
-                Console.WriteLine(lang.Get("replyFalse", variables));
+                Console.WriteLine(lang.Get("replyFalse", CreerVariables()));
             }
         }
 
-        var variables = new Dictionary<string, string>
-            {
-                { "pseudo", pseudoJoueur},
-                { "joueur1.vie", joueur1.vie.ToString() },
-                { "joueur1.force", joueur1.force.ToString() },
-                { "Ennemy.nom", ennemy.nom },
-                { "Ennemy.vie", ennemy.vie.ToString() },
-                { "Ennemy.degats", ennemy.degats.ToString() },
-                { "exp", joueur1.exp.ToString() },
-                { "expRestant", joueur1.expAvantLvlUp.ToString() },
-                { "niveau", joueur1.niveauSuivant.ToString() },
-                { "expDrop", ennemy.expDrop.ToString() }
-            };
+        int attaqueFaible = joueur1.force * 25/100;
+        int degats = joueur1.force * 2;
 
-        Console.WriteLine(lang.Get("playerStats", variables));
-        Console.WriteLine(lang.Get("ennemiStats", variables));
+        Dictionary<string, string> CreerVariables()
+        {
+            var variables = new Dictionary<string, string>
+                {
+                    { "pseudo", pseudoJoueur},
+                    { "joueur1.vie", joueur1.vie.ToString() },
+                    { "joueur1.force", joueur1.force.ToString() },
+                    { "joueur1.degats", degats.ToString() },
+                    { "attaqueFaible", attaqueFaible.ToString() },
+                    { "Ennemy.nom", ennemy.nom },
+                    { "Ennemy.vie", ennemy.vie.ToString() },
+                    { "Ennemy.degats", ennemy.degats.ToString() },
+                    { "exp", joueur1.exp.ToString() },
+                    { "expRestant", joueur1.expAvantLvlUp.ToString() },
+                    { "niveau", joueur1.niveauSuivant.ToString() },
+                    { "expDrop", ennemy.expDrop.ToString() },
+                };
+            return variables;
+        }
+
+        Console.WriteLine(lang.Get("playerStats", CreerVariables()));
+        Console.WriteLine(lang.Get("ennemiStats", CreerVariables()));
 
         bool bloque = false;
         bool strongEnnemyAttack = false;
@@ -90,7 +99,7 @@ while (wentContinue){
             }
             else if (!ennemy.enVie())
             {
-                Console.WriteLine(lang.Get("win", variables));
+                Console.WriteLine(lang.Get("win", CreerVariables()));
                 joueur1.GagnerExp(ennemy.expDrop);
                 finCombat = true;
             }
@@ -103,26 +112,19 @@ while (wentContinue){
                 Console.WriteLine(lang.Get("strongEnnemyAttack"));
             }
 
-            Console.WriteLine(lang.Get("turn", variables));
-            
-            int degats = joueur1.force * 200/100;
+            Console.WriteLine(lang.Get("turn", CreerVariables()));
+
             int chanceFuite = rnd.Next(0, 2);
             int choixAction = LireEntier(lang.Get("choice"), 1, 4);
 
-            variables = new Dictionary<string, string>
-                {
-                    { "joueur1.degats", joueur1.force.ToString() },
-                    { "degats", degats.ToString() },
-                    { "Ennemy.nom", ennemy.nom },
-                };
             if (choixAction == 1)
             {
-                Console.WriteLine(lang.Get("choixAttaque", variables));
+                Console.WriteLine(lang.Get("choixAttaque", CreerVariables()));
                 int choixAttack = LireEntier(lang.Get("choice"),1,2);
                 if (choixAttack == 1)
                 {
                     ennemy.vie -= joueur1.force;
-                    Console.WriteLine(lang.Get("player_attack", variables));
+                    Console.WriteLine(lang.Get("player_attack", CreerVariables()));
                     CheckVie();
                 }
                 else if (choixAttack == 2)
@@ -131,7 +133,7 @@ while (wentContinue){
                     {
                         
                         ennemy.vie -= degats;
-                        Console.WriteLine(lang.Get("player_attack", variables));
+                        Console.WriteLine(lang.Get("player_attack", CreerVariables()));
                     }
                     else
                     {
@@ -143,7 +145,8 @@ while (wentContinue){
             else if (choixAction == 2)
             {
                 bloque = true;
-                Console.WriteLine(lang.Get("blocage"));
+                Console.WriteLine(lang.Get("blocage", CreerVariables()));
+                ennemy.vie -= attaqueFaible;
                 CheckVie();
             }
             else if (choixAction == 3)
@@ -169,6 +172,7 @@ while (wentContinue){
                 if (strongEnnemyAttack)
                 {
                     joueur1.vie -= (int)(ennemy.degats * 1.5 * 50 / 100);
+                    strongEnnemyAttack = false;
                 }
                 else
                 {
@@ -182,20 +186,11 @@ while (wentContinue){
                 strongEnnemyAttack = false;
             }
             else {joueur1.vie -= ennemy.degats;}
-            Console.WriteLine(lang.Get("ennemie_attack", variables));
+            Console.WriteLine(lang.Get("ennemie_attack", CreerVariables()));
             CheckVie();
         }
         while (joueur1.enVie() && ennemy.enVie() && !finCombat)
         {
-            variables = new Dictionary<string, string>
-            {
-                { "joueur1.vie", joueur1.vie.ToString() },
-                { "joueur1.force", joueur1.force.ToString() },
-                { "Ennemy.nom", ennemy.nom },
-                { "Ennemy.vie", ennemy.vie.ToString() },
-                { "Ennemy.degats", ennemy.degats.ToString() },
-                
-            };
             PlayerTurn();
             if (!finCombat)
             {
