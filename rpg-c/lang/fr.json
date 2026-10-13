@@ -9,7 +9,7 @@
     "lvlUp": "Tu est monté de niveau tu gagne +1 en force et +2 en vie", 
     
     "tour": "C'est ton tour. Tu as {joueur1.vie} pv\nLe {Ennemy.nom} a {Ennemy.vie} hp et fait {Ennemy.degats} degats\nTu as deux options:\n1 = choisir une attaque; 2 = bloquer une partie des degats et faire {attaqueFaible} degats; 3 = tenter de fuir",
-    "choixAttaque": "Tu as 2 attaque disponible: \n1 = attaquer et faire {joueur1.degats}; 2 = attaquer avec des chances de fail mais faire {degats} degats",
+    "choixAttaque": "Tu as 2 attaque disponible: \n1 = attaquer et faire {joueur1.force} degats; 2 = attaquer avec des chances de fail mais faire {joueur1.degats} degats",
     
     "blocage": "Tu arrive a bloquer une partie des degats",
     "player_attack": "Tu frappe {Ennemy.nom} il perd de la vie",

@@ -14,6 +14,15 @@
   button { background: #238636; color: #fff; border: 0; border-radius: 6px; padding: 8px 14px; font: inherit; cursor: pointer; }
   button.alt { background: #30363d; }
   #status { font-size: 12px; margin-top: 4px; color: #8b949e; }
+
+  /* ===== PALETTE : chaque nouvelle ligne prend la couleur suivante, puis ça recommence ===== */
+  .ln { min-height: 1.2em; }
+  .l0 { color: #58a6ff; } /* bleu   */
+  .l1 { color: #e3b341; } /* jaune  */
+  .l2 { color: #3fb950; } /* vert   */
+  .l3 { color: #bc8cff; } /* violet */
+  .l4 { color: #f85149; } /* rouge  */
+  .l5 { color: #39c5cf; } /* cyan   */
 </style>
 </head>
 <body>
@@ -27,24 +36,64 @@
   <div id="status">Connexion…</div>
 </div>
 <script>
-  // Chemins relatifs : fonctionne derrière /proxy/5080/
+  // Chemins relatifs pour les appels API (ex. 'api/output').
   const out = document.getElementById('out');
   const input = document.getElementById('in');
   const statusEl = document.getElementById('status');
   let next = 0;
 
+  // Nombre de couleurs dans la palette (l0 ... l5 dans le CSS).
+  const PALETTE_SIZE = 6;
+  let colorIndex = 0; // couleur de la prochaine ligne
+
   // Retire les codes ANSI (couleurs, curseur) qui s'afficheraient en texte brut.
   const stripAnsi = s => s.replace(/\x1b\[[0-9;?]*[A-Za-z]/g, '');
+
+  // La dernière ligne (incomplète, par ex. une question sans retour à la ligne)
+  // vit dans "live" ; les lignes terminées sont insérées avant.
+  const live = document.createElement('div');
+  live.className = 'ln l0';
+  out.appendChild(live);
+  let pending = '';
+
+  function addLine(text) {
+    const div = document.createElement('div');
+    div.className = 'ln l' + colorIndex;
+    div.textContent = text;
+    out.insertBefore(div, live);
+    // Les lignes vides ne consomment pas de couleur.
+    if (text.trim() !== '') colorIndex = (colorIndex + 1) % PALETTE_SIZE;
+  }
+
+  function updateLive() {
+    live.textContent = pending;
+    live.className = 'ln l' + colorIndex; // aura la couleur qu'elle gardera une fois terminée
+  }
+
+  function pushText(text) {
+    pending += text.replace(/\r/g, '');
+    const parts = pending.split('\n');
+    pending = parts.pop(); // dernier morceau : ligne pas encore terminée
+    for (const p of parts) addLine(p);
+    updateLive();
+  }
+
+  function clearOut() {
+    out.replaceChildren(live);
+    pending = '';
+    colorIndex = 0;
+    updateLive();
+  }
 
   async function poll() {
     try {
       const r = await fetch('api/output?since=' + next, { cache: 'no-store' });
       const d = await r.json();
-      if (d.next < next) out.textContent = ''; // redémarrage
+      if (d.next < next) clearOut(); // redémarrage
       next = d.next;
       if (d.chunks.length) {
         const atBottom = out.scrollHeight - out.scrollTop - out.clientHeight < 40;
-        out.textContent += stripAnsi(d.chunks.join(''));
+        pushText(stripAnsi(d.chunks.join('')));
         if (atBottom) out.scrollTop = out.scrollHeight;
       }
       statusEl.textContent = d.running ? 'Jeu en cours' : 'Jeu arrêté';
@@ -57,7 +106,10 @@
   async function send() {
     const cmd = input.value;
     input.value = '';
-    out.textContent += '> ' + cmd + '\n';
+    // Si une question attend sur la ligne en cours, la réponse s'y colle ; sinon "> commande".
+    addLine(pending ? pending + cmd : '> ' + cmd);
+    pending = '';
+    updateLive();
     out.scrollTop = out.scrollHeight;
     try {
       const r = await fetch('api/input', {
@@ -67,10 +119,10 @@
       });
       if (!r.ok) {
         const e = await r.json().catch(() => ({}));
-        out.textContent += '[' + (e.error || 'Erreur') + ']\n';
+        addLine('[' + (e.error || 'Erreur') + ']');
       }
     } catch {
-      out.textContent += '[Envoi impossible]\n';
+      addLine('[Envoi impossible]');
     }
     input.focus();
   }
@@ -79,7 +131,7 @@
   input.addEventListener('keydown', e => { if (e.key === 'Enter') send(); });
   document.getElementById('restart').onclick = async () => {
     await fetch('api/restart', { method: 'POST' });
-    out.textContent = '';
+    clearOut();
     next = 0;
   };
 
