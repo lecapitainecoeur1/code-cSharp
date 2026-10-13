@@ -4,6 +4,7 @@ public class Ennemy
     public int vie;
     public int degats;
     public int expDrop;
+
     public Ennemy(string unNom, int nbVie, int nbDegats, int nbExpDrop)
     {
         nom = unNom;
@@ -25,6 +26,12 @@ public class Ennemy
         degats = 6;
         expDrop = 10;
     }
+    private void Troll(){
+        nom = "Troll";
+        vie = 80;
+        degats = 12;
+        expDrop = 20;
+    }
     public Ennemy(Joueur joueur, Random rnd)
     {
         if (joueur.lvl < 5)
@@ -44,24 +51,18 @@ public class Ennemy
         }
         else
         {
-            int ennemySpawn = rnd.Next(0, 3);
-            if (ennemySpawn == 0)
-            {
-                Gobelin();
-            }
-            else if (ennemySpawn == 1)
+            
+            if (rnd.Next(0, 2) == 0)
             {
                 Orc();
             }
             else
             {
-                nom = "Troll";
-                vie = 80;
-                degats = 12;
-                expDrop = 20;
+                Troll();
             }
         }
     }
+
     public bool enVie()
     {
         return vie > 0;

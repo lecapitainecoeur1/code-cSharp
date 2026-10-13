@@ -1,11 +1,14 @@
 {
-  "get_pseudo" : "What's your pseudo",
+  "get_pseudo" : "What's your pseudo?",
 
   "choice" : "your choice: ",
   "replyFalse" : "Enter a number between {min} and {max}.",
+  
   "playerStats": "Welcome {pseudo}. You have {exp} exp and you need {expRestant} more to reach the level {niveau}.",
   "ennemiStats": "A {Ennemy.nom} is in front of you if ou kill him you will receive {expDrop} exp",
+  
   "turn": "It's your turn. You have {joueur1.vie} hp\n{Ennemy.nom} has {Ennemy.vie} hp and he make {Ennemy.degats} damage\nyou have two options:\n1 = attack make {joueur1.force} damage; 2 = ; 3 = try to flee",
+  
   "blocage": "You block part of the enemy attack",
   "player_attack": "you hit {Ennemy.nom} he loses hp",
   "ennemie_attack": "{Ennemy.nom} hits you",

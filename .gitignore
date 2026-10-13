@@ -60,6 +60,8 @@ dkms.conf
 # Build
 rpg-c/bin/
 rpg-c/obj/
+RPGBridge/obj/
+RPGBridge/bin/
 
 # Visual Studio
 .vs/
@@ -68,6 +70,7 @@ rpg-c/obj/
 
 # VS Code
 rpg-c/.vscode/
+RPGBridge/.vscode/
 
 # Rider / JetBrains
 .idea/

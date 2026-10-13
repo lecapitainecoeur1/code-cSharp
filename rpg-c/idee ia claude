@@ -1,0 +1,42 @@
+Équilibrage : ce que tes chiffres racontent
+
+1. Tes ennemis ne s’adaptent pas au joueur, seulement par paliers.
+Un joueur de niveau 4 affronte le même Gobelin qu’un joueur de niveau 1, alors qu’il a gagné de la force et des PV. Le niveau 4 est donc plus facile que le niveau 1, puis la difficulté remonte brutalement au niveau 5 avec l’arrivée de l’Orc. La courbe de difficulté fait des dents de scie. Calcule combien de tours dure un combat contre un Gobelin à chaque niveau de 1 à 4, tu verras la tendance. Cherche : courbe de difficulté, scaling des ennemis.
+
+2. Ta progression est exponentielle d’un côté, linéaire de l’autre.
+Le seuil d’XP augmente de 50 % par niveau (exponentiel), alors que la force augmente de 1 et les PV de 2 par niveau (linéaire). Les ennemis, eux, donnent une XP fixe. Conséquence : monter de niveau devient de plus en plus long, donc le joueur se renforce de moins en moins vite. Est-ce l’effet que tu veux ? Sur papier, calcule combien de combats il faut pour passer du niveau 1 au niveau 10.
+
+3. La fuite n’a aucun coût.
+Elle réussit une fois sur deux et un échec ne coûte qu’un tour. Un joueur peut donc fuir tous les combats risqués et en relancer un nouveau, sans conséquence. Pour la difficulté que tu cherches, réfléchis à ce que fuir devrait coûter : de l’XP, un ennemi qui frappe en premier au prochain combat, un objet perdu...
+
+Profondeur de jeu
+
+4. Ton combat est entièrement déterministe, sauf pour deux choses.
+L’ennemi frappe toujours avec la même valeur, et seule l’attaque forte (annoncée) varie. Le joueur peut donc calculer le meilleur choix à l’avance, ce qui tue la réflexion que tu recherches. Les pistes classiques : une variance sur les dégâts (une fourchette plutôt qu’une valeur fixe), des coups critiques, un ennemi qui peut esquiver. Mais attention : trop de hasard donne l’effet inverse, le joueur n’a plus de contrôle. Le bon dosage est tout l’art du game design.
+
+5. Tes ennemis ont tous le même comportement.
+Seules leurs statistiques changent. Le Troll n’est qu’un Gobelin avec plus de PV. Pour obliger à réfléchir, donne-leur des comportements différents : un ennemi qui se met en rage sous 30 % de vie, un autre qui alterne attaque et récupération (donc prévisible, ce qui récompense l’observation), un autre qui ignore le blocage. Un joueur doit y adapter sa stratégie plutôt que répéter la même. Cherche : IA d’ennemi simple, patterns d’attaque.
+
+6. Les effets de statut.
+Poison, étourdissement, bouclier temporaire : ce sont des effets qui durent plusieurs tours. Ils t’obligent à garder un état dans le temps, c’est un excellent exercice. Pose-toi la question de où tu stockes « il reste 2 tours de poison » et quand tu le fais baisser.
+
+7. L’initiative.
+Aujourd’hui, le joueur joue toujours en premier. Qu’est-ce qui se passerait avec une statistique de vitesse qui décide qui commence ? Ça change complètement la valeur d’un ennemi rapide.
+
+Technique, à un niveau supérieur
+
+8. Écris un simulateur de combat.
+C’est mon conseil le plus utile. Un petit programme qui joue des milliers de combats automatiquement avec différentes stratégies (« toujours attaque 1 », « toujours attaque 2 », « bloque si attaque forte annoncée ») et affiche le taux de victoire. Tu verras des chiffres au lieu de deviner ton équilibrage. Ça demande de séparer la logique de l’affichage, donc tu y arriveras naturellement en avançant. Pour que les résultats soient reproductibles, regarde l’initialisation de Random avec une graine.
+
+9. Le dépassement d’entier.
+Dans LvlUp, le calcul lvlCapExp * 50 / 100 multiplie avant de diviser. Un int plafonne à environ 2,1 milliards, donc ce calcul déborde bien avant. À ton rythme de progression, tu n’y arriveras sans doute jamais, mais c’est un cas classique à comprendre. Cherche : integer overflow, checked.
+
+10. L’injection dans tes textes.
+Ton Get remplace {nom} par la valeur du dictionnaire, dans l’ordre. Si un joueur saisit le pseudo {exp}, selon l’ordre de remplacement, son pseudo pourrait être remplacé à son tour. Ce n’est pas grave ici, mais c’est l’ancêtre d’une vraie famille de failles de sécurité. Demande-toi ce qui se passe quand une donnée venant de l’utilisateur est traitée comme du texte « de confiance ».
+
+11. La nullabilité.
+Tu as quelques avertissements string? dans ton code. C# permet de déclarer qu’une valeur peut être nulle ou non, et le compilateur t’aide à éviter les plantages. Dans LanguageService, la désérialisation peut renvoyer null, et ton code suppose que non. Comprendre ce système est une étape importante pour écrire du C# moderne.
+
+Par où continuer
+
+Pour ton objectif (un jeu qui demande de la réflexion), je te conseille l’ordre suivant : 3 (coût de la fuite), 1 (courbe de difficulté), puis 5 (comportements d’ennemis), et le simulateur (8) quand tu voudras vérifier tout ça avec des chiffres plutôt qu’à l’intuition.

@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RPG</title>
+<style>
+  html, body { height: 100%; margin: 0; background: #0d1117; color: #c9d1d9; font-family: ui-monospace, Menlo, Consolas, monospace; }
+  #app { display: flex; flex-direction: column; height: 100%; max-width: 900px; margin: 0 auto; padding: 8px; box-sizing: border-box; }
+  #out { flex: 1; overflow-y: auto; white-space: pre-wrap; word-break: break-word; background: #010409; border: 1px solid #30363d; border-radius: 6px; padding: 10px; }
+  #bar { display: flex; gap: 6px; margin-top: 8px; }
+  #in { flex: 1; background: #010409; color: inherit; border: 1px solid #30363d; border-radius: 6px; padding: 8px; font: inherit; }
+  button { background: #238636; color: #fff; border: 0; border-radius: 6px; padding: 8px 14px; font: inherit; cursor: pointer; }
+  button.alt { background: #30363d; }
+  #status { font-size: 12px; margin-top: 4px; color: #8b949e; }
+</style>
+</head>
+<body>
+<div id="app">
+  <div id="out"></div>
+  <div id="bar">
+    <input id="in" autocomplete="off" autofocus placeholder="Tape une commande puis Entrée">
+    <button id="send">Envoyer</button>
+    <button id="restart" class="alt">Redémarrer</button>
+  </div>
+  <div id="status">Connexion…</div>
+</div>
+<script>
+  // Chemins relatifs : fonctionne derrière /proxy/5080/
+  const out = document.getElementById('out');
+  const input = document.getElementById('in');
+  const statusEl = document.getElementById('status');
+  let next = 0;
+
+  // Retire les codes ANSI (couleurs, curseur) qui s'afficheraient en texte brut.
+  const stripAnsi = s => s.replace(/\x1b\[[0-9;?]*[A-Za-z]/g, '');
+
+  async function poll() {
+    try {
+      const r = await fetch('api/output?since=' + next, { cache: 'no-store' });
+      const d = await r.json();
+      if (d.next < next) out.textContent = ''; // redémarrage
+      next = d.next;
+      if (d.chunks.length) {
+        const atBottom = out.scrollHeight - out.scrollTop - out.clientHeight < 40;
+        out.textContent += stripAnsi(d.chunks.join(''));
+        if (atBottom) out.scrollTop = out.scrollHeight;
+      }
+      statusEl.textContent = d.running ? 'Jeu en cours' : 'Jeu arrêté';
+    } catch {
+      statusEl.textContent = 'Serveur injoignable…';
+    }
+    setTimeout(poll, 400);
+  }
+
+  async function send() {
+    const cmd = input.value;
+    input.value = '';
+    out.textContent += '> ' + cmd + '\n';
+    out.scrollTop = out.scrollHeight;
+    try {
+      const r = await fetch('api/input', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ command: cmd })
+      });
+      if (!r.ok) {
+        const e = await r.json().catch(() => ({}));
+        out.textContent += '[' + (e.error || 'Erreur') + ']\n';
+      }
+    } catch {
+      out.textContent += '[Envoi impossible]\n';
+    }
+    input.focus();
+  }
+
+  document.getElementById('send').onclick = send;
+  input.addEventListener('keydown', e => { if (e.key === 'Enter') send(); });
+  document.getElementById('restart').onclick = async () => {
+    await fetch('api/restart', { method: 'POST' });
+    out.textContent = '';
+    next = 0;
+  };
+
+  poll();
+</script>
+</body>
+</html>

@@ -19,10 +19,6 @@ public class Config
 
         string json = File.ReadAllText(path);
         var config = JsonSerializer.Deserialize<Config>(json);
-        if (config == null || string.IsNullOrEmpty(config.language))
-        {
-            config = new Config { language = "en" };
-        }
         return config;
     }
     public void Save()

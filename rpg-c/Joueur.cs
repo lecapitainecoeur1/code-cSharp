@@ -9,6 +9,9 @@ public class Joueur
     public int potions;
     public int expAvantLvlUp;
     public int niveauSuivant;
+    public int attaqueFaible;
+    public int degats;
+
     public Joueur(int nbVie, int nbForce, int nbExp, int nbLvlCapExp, int nbLvl, int nbPotion)
     {
         // actualisation des variables
@@ -21,11 +24,15 @@ public class Joueur
         potions = nbPotion;
         niveauSuivant = lvl + 1;
         expAvantLvlUp = lvlCapExp - exp;
+        degats = force * 2;
+        attaqueFaible = force * 25/100;
     }
+
     public bool enVie()
     {
         return vie > 0;
     }
+
     public void GagnerExp(int experience)
     {
         exp += experience;
@@ -35,15 +42,19 @@ public class Joueur
             LvlUp();
         }
     }
+
     public void LvlUp()
     {
         exp -= lvlCapExp;
         lvl += 1;
-        force += 1;
-        maxVie += 2;
+        force += 1; // valeur a modifier pour augmenter proportionnelement
+        maxVie += 2; // valeur a modifier pour augmenter proportionnelement
         lvlCapExp += lvlCapExp *  50/100;
         niveauSuivant += 1;
         expAvantLvlUp = lvlCapExp - exp;
         vie = maxVie;
+        attaqueFaible = force * 25/100;
+        degats = force * 2;
     }
+    
 }

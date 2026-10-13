@@ -1,17 +1,23 @@
 {
-    "get_pseudo" : "Quel est ton pseudo",
+    "get_pseudo" : "Quel est ton pseudo?",
 
     "choice" : "Ton choix: ",
     "replyFalse" : "Entre un nombre entre {min} et {max}.",
+    
     "playerStats": "Bienvenue {pseudo}. Tu as {exp} exp et il te faut encore {expRestant} exp pour passer au niveau {niveau}.",
     "ennemiStats": "Un {Ennemy.nom} est devant toi. Si tu le tue tu recevra {expDrop} exp",
-    "turn": "C'est ton tour. Tu as {joueur1.vie} pv\nLe {Ennemy.nom} a {Ennemy.vie} hp et fait {Ennemy.degats} degats\nTu as deux options:\n1 = choisir une attaque; 2 = bloquer une partie des degats et faire {attaqueFaible} degats; 3 = tenter de fuir",
+    "lvlUp": "Tu est monté de niveau tu gagne +1 en force et +2 en vie", 
+    
+    "tour": "C'est ton tour. Tu as {joueur1.vie} pv\nLe {Ennemy.nom} a {Ennemy.vie} hp et fait {Ennemy.degats} degats\nTu as deux options:\n1 = choisir une attaque; 2 = bloquer une partie des degats et faire {attaqueFaible} degats; 3 = tenter de fuir",
     "choixAttaque": "Tu as 2 attaque disponible: \n1 = attaquer et faire {joueur1.degats}; 2 = attaquer avec des chances de fail mais faire {degats} degats",
+    
     "blocage": "Tu arrive a bloquer une partie des degats",
     "player_attack": "Tu frappe {Ennemy.nom} il perd de la vie",
     "ennemie_attack": "{Ennemy.nom} te frappe",
     "strongEnnemyAttack": "l'ennemie prepare une attaque puissante",
     "attackFail": "tu n'a pas reussi a attaquer...",
+
+    "fuite": "Tu reussi a t'enfuir",
     "fuiteFail": "tu n'a pas reussi a fuir...",
 
     "lose": "Tu as perdu!",
