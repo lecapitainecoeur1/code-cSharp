@@ -12,7 +12,7 @@ public class Config
         if (!File.Exists(path))
         {
             // config par défaut
-            var defaultConfig = new Config { language = "en" };
+            var defaultConfig = new Config { language = "fr" };
             File.WriteAllText(path, JsonSerializer.Serialize(defaultConfig, new JsonSerializerOptions { WriteIndented = true }));
             return defaultConfig;
         }
