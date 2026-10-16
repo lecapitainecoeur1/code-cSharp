@@ -56,5 +56,4 @@ public class Joueur
         attaqueFaible = force * 25/100;
         degats = force * 2;
     }
-    
 }

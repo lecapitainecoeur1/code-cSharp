@@ -1,11 +1,9 @@
-public class Combat{
+public class Combat
+{
 
     LanguageService lang = new LanguageService();
     Config config = Config.Load();
-     // max vie; force; exp; lvlcapexp; lvl; potions;
-
     
-
     Random rnd;
     string pseudoJoueur;
     Joueur joueur1;

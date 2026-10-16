@@ -9,7 +9,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // ============================ CONFIGURATION ============================
 
-// Adresse publique : https://skz.kaantay.fr:51706
+// Adresse publique : https://skz.kaantay.fr:51708
 const int Port = 51708;
 
 const string DockerImage = "rpg-image";               // image construite à partir de ton RPG (voir Dockerfile)

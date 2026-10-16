@@ -1,0 +1,10 @@
+
+{
+    "csharp|diagnostics.suppressions": [
+        "IDE1006",
+        "CA1050",
+        "IDE0090",
+        "IDE0044",
+        "CA1050",
+    ]
+}
