@@ -24,7 +24,7 @@ public class Joueur
         potions = nbPotion;
         niveauSuivant = lvl + 1;
         expAvantLvlUp = lvlCapExp - exp;
-        degats = force * 2;
+        degats = force * 175/100;
         attaqueFaible = force * 25/100;
     }
 
