@@ -22,8 +22,8 @@ public class Config
         return config;
     }
     public void Save()
-{
-    string json = JsonSerializer.Serialize(this, new JsonSerializerOptions { WriteIndented = true });
-    File.WriteAllText("config.json", json);
-}
+    {
+        string json = JsonSerializer.Serialize(this, new JsonSerializerOptions { WriteIndented = true });
+        File.WriteAllText("config.json", json);
+    }  
 }

@@ -33,6 +33,11 @@ if (string.IsNullOrEmpty(pseudoJoueur))
     else
         pseudoJoueur = "Player";
 }
+var variables = new Dictionary<string, string>{
+    { "pseudo", pseudoJoueur},
+};
+Console.WriteLine(lang.Get("narration"));
+Console.WriteLine(lang.Get("narration2", variables));
 Joueur joueur1 = new Joueur(20, 4, 0, 10, 1, 0);
 Combat combat = new Combat(rnd, pseudoJoueur, joueur1);
 

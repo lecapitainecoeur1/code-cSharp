@@ -1,6 +1,9 @@
 {
     "get_pseudo" : "Quel est ton pseudo?",
 
+    "narration" : "Voix de femme: Tu crois qu'il va mourir?\nVoix d'homme: Non je le connais il est puissant il s'en sortira mais par contre surement pas avec son ancien niveau, ca va faire 1 an qu'il est dans ce lit...\nFemme: On doit repartir dans les dongeon on a casiment plus d'argent\nHomme: Oui malheuresement j'aurai bien aimé rester avec lui mais bon... Aurevoir mon ami et j'espere que quand on reviendra tu sera mieux!\n",
+    "narration2" : "Tu ouvre les yeux et tu voix que du blanc quand tu regarde autour de toi tu te retrouve dans un grand batiment et une femme vient te voir,\nInfirmiere: Bonjour {pseudo} tu t'est enfin reveiller ca fesait deja 1 an que tu etait ici \n{pseudo}: Qui etes vous et ou suis-je\nInfirmiere: Je suis l'infirmiere a votre charge et vous etes dans l'hopital vous avez perdu votre memoire et vous vous souvenez uniquement de qui vous etes et des regles de ce mondes\n",
+
     "choice" : "Ton choix: ",
     "replyFalse" : "Entre un nombre entre {min} et {max}.",
     
@@ -17,7 +20,7 @@
     "strongEnnemyAttack": "l'ennemie prepare une attaque puissante",
     "attackFail": "tu n'a pas reussi a attaquer...",
 
-    "fuite": "Tu reussi a t'enfuir",
+    "fuite": "Tu reussi a t'enfuir, tu rentre chez toi et tu t'endort tu regagne de la vie",
     "fuiteFail": "tu n'a pas reussi a fuir...",
 
     "lose": "Tu as perdu!",
