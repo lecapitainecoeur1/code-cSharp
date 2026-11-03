@@ -1,29 +1,31 @@
 {
-    "get_pseudo" : "Quel est ton pseudo?",
+    "demandePseudo" : "Quel est ton pseudo?",
 
     "narration" : "Voix de femme: Tu crois qu'il va mourir?\nVoix d'homme: Non je le connais il est puissant il s'en sortira mais par contre surement pas avec son ancien niveau, ca va faire 1 an qu'il est dans ce lit...\nFemme: On doit repartir dans les dongeon on a casiment plus d'argent\nHomme: Oui malheuresement j'aurai bien aimé rester avec lui mais bon... Aurevoir mon ami et j'espere que quand on reviendra tu sera mieux!\n",
     "narration2" : "Tu ouvre les yeux et tu voix que du blanc quand tu regarde autour de toi tu te retrouve dans un grand batiment et une femme vient te voir,\nInfirmiere: Bonjour {pseudo} tu t'est enfin reveiller ca fesait deja 1 an que tu etait ici \n{pseudo}: Qui etes vous et ou suis-je\nInfirmiere: Je suis l'infirmiere a votre charge et vous etes dans l'hopital vous avez perdu votre memoire et vous vous souvenez uniquement de qui vous etes et des regles de ce mondes\n",
 
-    "choice" : "Ton choix: ",
-    "replyFalse" : "Entre un nombre entre {min} et {max}.",
+    "choix" : "Ton choix: ",
+    "reponseIncorrecte" : "Entre un nombre entre {min} et {max}.",
     
-    "playerStats": "Bienvenue {pseudo}. Tu as {exp} exp et il te faut encore {expRestant} exp pour passer au niveau {niveau}.",
+    "joueurStats": "Bienvenue {pseudo}. Tu as {exp} exp et il te faut encore {expRestant} exp pour passer au niveau {niveau}.",
     "ennemiStats": "Un {Ennemy.nom} est devant toi. Si tu le tue tu recevra {expDrop} exp",
     "lvlUp": "Tu est monté de niveau tu gagne +1 en force et +2 en vie", 
     
-    "tour": "C'est ton tour. Tu as {joueur1.vie} pv\nLe {Ennemy.nom} a {Ennemy.vie} hp et fait {Ennemy.degats} degats\nTu as deux options:\n1 = choisir une attaque; 2 = bloquer une partie des degats et faire {attaqueFaible} degats; 3 = tenter de fuir",
-    "choixAttaque": "Tu as 2 attaque disponible: \n1 = attaquer et faire {joueur1.force} degats; 2 = attaquer avec des chances de fail mais faire {joueur1.degats} degats",
+    "infosTour" : "C'est ton tour. Tu as {joueur1.vie} pv\nLe {Ennemy.nom} a {Ennemy.vie} pv et fait {Ennemy.degats} degats",
+    "tour": "Tu as trois options:\n1 = choisir une attaque, 2 = bloquer une partie des degats et faire {attaqueFaible} degats, 3 = ouvir l'inventaire, 4 = tenter de fuir",
+    "choixAttaque": "Tu as trois choix disponibles: \n1 = attaquer et faire {joueur1.force} degats; 2 = attaquer avec des chances de fail mais faire {joueur1.degats} degats, 3 = revenir au menu d'avant",
+    "inventaire": "Tu as deux choix: \n1 = utiliser une potion et gagner {soins} pv, 2 = revenir au menu d'avant",
     
     "blocage": "Tu arrive a bloquer une partie des degats",
-    "player_attack": "Tu frappe {Ennemy.nom} il perd de la vie",
-    "ennemie_attack": "{Ennemy.nom} te frappe",
-    "strongEnnemyAttack": "l'ennemie prepare une attaque puissante",
-    "attackFail": "tu n'a pas reussi a attaquer...",
+    "attaqueJoueur": "Tu frappe {Ennemy.nom} il perd de la vie",
+    "attaqueEnnemi": "{Ennemy.nom} te frappe",
+    "attaquePuissanteEnnemi": "l'ennemie prepare une attaque puissante",
+    "attaqueLoupe": "tu n'a pas reussi a attaquer...",
 
     "fuite": "Tu reussi a t'enfuir, tu rentre chez toi et tu t'endort tu regagne de la vie",
-    "fuiteFail": "tu n'a pas reussi a fuir...",
+    "fuiteLoupe": "tu n'a pas reussi a fuir...",
 
-    "lose": "Tu as perdu!",
-    "win": "{Ennemy.nom} est mort. Tu as gagné!",
-    "restart": "Veut tu recommencer? 1 = oui; 2 = non"
+    "perdu": "Tu as perdu!",
+    "gagne": "{Ennemy.nom} est mort. Tu as gagné!",
+    "recommencer": "Veut tu recommencer? 1 = oui; 2 = non"
 }

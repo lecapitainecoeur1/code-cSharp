@@ -22,7 +22,7 @@ else
     lang.Load(config.language ?? "en");
 }
 string langue = config.language;
-Console.WriteLine(lang.Get("get_pseudo"));
+Console.WriteLine(lang.Get("demandePseudo"));
 string? pseudoJoueur = Console.ReadLine();
 if (string.IsNullOrEmpty(pseudoJoueur))
 {
@@ -36,15 +36,15 @@ if (string.IsNullOrEmpty(pseudoJoueur))
 var variables = new Dictionary<string, string>{
     { "pseudo", pseudoJoueur},
 };
-Console.WriteLine(lang.Get("narration"));
-Console.WriteLine(lang.Get("narration2", variables));
+//Console.WriteLine(lang.Get("narration"));
+//Console.WriteLine(lang.Get("narration2", variables));
 Joueur joueur1 = new Joueur(20, 4, 0, 10, 1, 0);
 Combat combat = new Combat(rnd, pseudoJoueur, joueur1);
 
 bool wentContinue = true;
 while(wentContinue){
     combat.LancerCombats();
-    Console.WriteLine(lang.Get("restart"));
+    Console.WriteLine(lang.Get("recommencer"));
     string restart = Console.ReadLine();
     if (restart == "1")
     {

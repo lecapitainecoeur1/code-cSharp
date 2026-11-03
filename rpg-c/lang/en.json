@@ -2,9 +2,9 @@
   "demandePseudo" : "What's your nickname?",
 
   "choix" : "your choice: ",
-  "replyFalse" : "Enter a number between {min} and {max}.",
+  "reponseIncorrecte" : "Enter a number between {min} and {max}.",
   
-  "playerStats": "Welcome {pseudo}. You have {exp} exp and you need {expRestant} more to reach the level {niveau}.",
+  "joueurStats": "Welcome {pseudo}. You have {exp} exp and you need {expRestant} more to reach the level {niveau}.",
   "ennemiStats": "A {Ennemy.nom} is in front of you if ou kill him you will receive {expDrop} exp",
   "lvlUp": "you reach the next level! you get +1 in strong and +2 in life",
 

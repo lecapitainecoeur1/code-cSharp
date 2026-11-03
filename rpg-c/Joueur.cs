@@ -11,6 +11,7 @@ public class Joueur
     public int niveauSuivant;
     public int attaqueFaible;
     public int degats;
+    public int soins;
 
     public Joueur(int nbVie, int nbForce, int nbExp, int nbLvlCapExp, int nbLvl, int nbPotion)
     {
@@ -26,6 +27,7 @@ public class Joueur
         expAvantLvlUp = lvlCapExp - exp;
         degats = force * 175/100;
         attaqueFaible = force * 25/100;
+        soins = maxVie * 25/100;
     }
 
     public bool enVie()

@@ -39,7 +39,7 @@ public class Combat
                     { "min", min.ToString() },
                     { "max", max.ToString() }
                 };
-                Console.WriteLine(lang.Get("replyFalse", variables));
+                Console.WriteLine(lang.Get("reponseIncorrecte", variables));
             }
         }
 
@@ -59,11 +59,12 @@ public class Combat
                     { "expRestant", joueur1.expAvantLvlUp.ToString() },
                     { "niveau", joueur1.niveauSuivant.ToString() },
                     { "expDrop", ennemy.expDrop.ToString() },
+                    { "soins", joueur1.soins.ToString()}
                 };
             return variables;
         }
 
-        Console.WriteLine(lang.Get("playerStats", CreerVariables()));
+        Console.WriteLine(lang.Get("joueurStats", CreerVariables()));
         Console.WriteLine(lang.Get("ennemiStats", CreerVariables()));
 
         bool bloque = false;
@@ -73,13 +74,14 @@ public class Combat
         {
             if (!joueur1.enVie())
             {
-                Console.WriteLine(lang.Get("lose"));
+                Console.WriteLine(lang.Get("perdu"));
                 finCombat = true;
                 joueur1 = new Joueur(20, 4, 0, 10, 1, 0);
             }
             else if (!ennemy.enVie())
             {
-                Console.WriteLine(lang.Get("win", CreerVariables()));
+                Console.WriteLine(lang.Get("gagne", CreerVariables()));
+                joueur1.potions++; 
                 int lastLevel = joueur1.lvl;
                 joueur1.GagnerExp(ennemy.expDrop);
                 if (lastLevel != joueur1.lvl)
@@ -88,27 +90,36 @@ public class Combat
                 }
                 finCombat = true;
             }
+            if (joueur1.vie > joueur1.maxVie)
+            {
+                joueur1.vie = joueur1.maxVie;
+            }
         }
         void PlayerTurn()
         {
-            if (rnd.Next(0, 100) < 40)
+            if (ennemy.nom == "orc")
             {
-                strongEnnemyAttack = true;
-                Console.WriteLine(lang.Get("strongEnnemyAttack"));
+                if (rnd.Next(0, 100) < 40)
+                {
+                    strongEnnemyAttack = true;
+                    Console.WriteLine(lang.Get("attaquePuissanteEnnemi"));
+                }
             }
 
+            Console.WriteLine(lang.Get("infosTour", CreerVariables()));
+            debutTour:
             Console.WriteLine(lang.Get("tour", CreerVariables()));
 
-            int choixAction = LireEntier(lang.Get("choice"), 1, 4);
+            int choixAction = LireEntier(lang.Get("choix"), 1, 4);
 
             if (choixAction == 1)
             {
                 Console.WriteLine(lang.Get("choixAttaque", CreerVariables()));
-                int choixAttack = LireEntier(lang.Get("choice"),1,2);
+                int choixAttack = LireEntier(lang.Get("choix"),1,3);
                 if (choixAttack == 1)
                 {
                     ennemy.vie -= joueur1.force;
-                    Console.WriteLine(lang.Get("player_attack", CreerVariables()));
+                    Console.WriteLine(lang.Get("attaqueJoueur", CreerVariables()));
                     CheckVie();
                 }
                 else if (choixAttack == 2)
@@ -117,13 +128,17 @@ public class Combat
                     {
                         
                         ennemy.vie -= joueur1.degats;
-                        Console.WriteLine(lang.Get("player_attack", CreerVariables()));
+                        Console.WriteLine(lang.Get("attaqueJoueur", CreerVariables()));
                     }
                     else
                     {
-                        Console.WriteLine(lang.Get("attackFail"));
+                        Console.WriteLine(lang.Get("attaqueLoupe"));
                     }
                     CheckVie();
+                }
+                else if (choixAttack == 3)
+                {
+                    goto debutTour;
                 }
             }
             else if (choixAction == 2)
@@ -135,19 +150,34 @@ public class Combat
             }
             else if (choixAction == 3)
             {
+                int soins = joueur1.maxVie *125/100;
+                Console.WriteLine(lang.Get("infosInventaire", CreerVariables()));
+                Console.WriteLine(lang.Get("inventaire", CreerVariables()));
+                int choixActionInventaire = LireEntier(lang.Get("choix"), 1, 2);
+                if (choixActionInventaire == 1 && joueur1.potions > 0)
+                {
+                    joueur1.potions -= 1;
+                    
+                    joueur1.vie += soins;
+                    
+                }
+                else if (choixActionInventaire == 2)
+                {
+                    goto debutTour;
+                }
+            }
+            else if (choixAction == 4)
+            {
                 if (rnd.Next(0, 2) == 1)
                 {
                     finCombat = true;
                     Console.WriteLine(lang.Get("fuite"));
+                    joueur1.vie = joueur1.maxVie;
                 }   
                 else
                 {
-                    Console.WriteLine(lang.Get("fuiteFail"));
+                    Console.WriteLine(lang.Get("fuiteLoupe"));
                 }
-            }
-            else if (choixAction == 4){
-                joueur1.exp = joueur1.lvlCapExp;
-                joueur1.GagnerExp(0);
             }
         }
         void EnnemyTurn()
@@ -171,7 +201,7 @@ public class Combat
                 strongEnnemyAttack = false;
             }
             else {joueur1.vie -= ennemy.degats;}
-            Console.WriteLine(lang.Get("ennemie_attack", CreerVariables()));
+            Console.WriteLine(lang.Get("attaqueEnnemi", CreerVariables()));
             CheckVie();
         }
         while (joueur1.enVie() && ennemy.enVie() && !finCombat)
