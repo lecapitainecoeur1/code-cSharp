@@ -8,8 +8,9 @@
   "ennemiStats": "A {Ennemy.nom} is in front of you if ou kill him you will receive {expDrop} exp",
   "lvlUp": "you reach the next level! you get +1 in strong and +2 in life",
 
-  "tour": "It's your turn. You have {joueur1.vie} hp\n{Ennemy.nom} has {Ennemy.vie} hp and he make {Ennemy.degats} damage\nYou have three options:\n1 = choose an attack; 2 = block a part of the damage and make {attaqueFaible} damage; 3 = try to flee",
-  "choixAttaque": "You have 2 attack available: \n1 = attack and make {joueur1.force} damage; 2 = attack with some chance to fail but make {joueur1.degats} damage",
+  "infoTour" : "It's your turn. You have {joueur1.vie} hp\n{Ennemy.nom} has {Ennemy.vie} hp and he make {Ennemy.degats} damage",
+  "tour": "You have three options:\n1 = choose an attack, 2 = block a part of the damage and make {attaqueFaible} damage, 3 = open your inventory, 4 = try to flee",
+  "choixAttaque": "You have three options available: \n1 = attack and make {joueur1.force} damage, 2 = attack with some chance to fail but make {joueur1.degats} damage, 3 = return to the previous menu",
 
   "blocage": "You block part of the enemy attack",
   "attaqueJoueur": "you hit {Ennemy.nom} he loses hp",
@@ -23,4 +24,4 @@
   "perdu": "You are dead",
   "gagne": "{Ennemy.nom} is dead. You win",
   "recommencer": "Do you want to restart? 1 = yes; 2 = no"
-}
+} 
