@@ -1,6 +1,5 @@
 public class Combat
 {
-
     LanguageService lang = new LanguageService();
     Config config = Config.Load();
     
@@ -14,7 +13,6 @@ public class Combat
         joueur1 = joueur;
         lang.Load(config.language ?? "en");
     }
-
 
     public void LancerCombats(){
 
@@ -59,7 +57,8 @@ public class Combat
                     { "expRestant", joueur1.expAvantLvlUp.ToString() },
                     { "niveau", joueur1.niveauSuivant.ToString() },
                     { "expDrop", ennemy.expDrop.ToString() },
-                    { "soins", joueur1.soins.ToString()}
+                    { "soins", joueur1.soins.ToString()},
+                    { "potions", joueur1.potions.ToString()},
                 };
             return variables;
         }
@@ -118,7 +117,7 @@ public class Combat
                 int choixAttack = LireEntier(lang.Get("choix"),1,3);
                 if (choixAttack == 1)
                 {
-                    ennemy.vie -= joueur1.force;
+                    ennemy.PrendreDegats(joueur1.force);
                     Console.WriteLine(lang.Get("attaqueJoueur", CreerVariables()));
                     CheckVie();
                 }
@@ -126,8 +125,7 @@ public class Combat
                 {
                     if (rnd.Next(0, 100) < 70)
                     {
-                        
-                        ennemy.vie -= joueur1.degats;
+                        ennemy.PrendreDegats(joueur1.degats);
                         Console.WriteLine(lang.Get("attaqueJoueur", CreerVariables()));
                     }
                     else
@@ -145,21 +143,27 @@ public class Combat
             {
                 bloque = true;
                 Console.WriteLine(lang.Get("blocage", CreerVariables()));
-                ennemy.vie -= joueur1.attaqueFaible;
+                ennemy.PrendreDegats(joueur1.attaqueFaible);
                 CheckVie();
             }
             else if (choixAction == 3)
             {
-                int soins = joueur1.maxVie *125/100;
+                int soins = joueur1.maxVie * 37/100;
                 Console.WriteLine(lang.Get("infosInventaire", CreerVariables()));
                 Console.WriteLine(lang.Get("inventaire", CreerVariables()));
                 int choixActionInventaire = LireEntier(lang.Get("choix"), 1, 2);
-                if (choixActionInventaire == 1 && joueur1.potions > 0)
+                if (choixActionInventaire == 1)
                 {
-                    joueur1.potions -= 1;
-                    
-                    joueur1.vie += soins;
-                    
+                    if (joueur1.potions > 0)
+                    {
+                        joueur1.potions -= 1;
+                        joueur1.vie += soins;
+                    }
+                    else
+                    {
+                        Console.WriteLine(lang.Get("pasPotions"));
+                        goto debutTour;
+                    }                    
                 }
                 else if (choixActionInventaire == 2)
                 {
@@ -182,25 +186,9 @@ public class Combat
         }
         void EnnemyTurn()
         {
-            if (bloque)
-            {
-                if (strongEnnemyAttack)
-                {
-                    joueur1.vie -= (int)(ennemy.degats * 1.5 * 50 / 100);
-                    strongEnnemyAttack = false;
-                }
-                else
-                {
-                    joueur1.vie -= ennemy.degats * 50/100;
-                }
-                bloque = false;
-            }
-            else if (strongEnnemyAttack)
-            {
-                joueur1.vie -= (int)(ennemy.degats * 1.5);
-                strongEnnemyAttack = false;
-            }
-            else {joueur1.vie -= ennemy.degats;}
+            joueur1.PrendreDegats(ennemy.nom, ennemy.degats, bloque, strongEnnemyAttack);
+            bloque = false;
+            strongEnnemyAttack = false;
             Console.WriteLine(lang.Get("attaqueEnnemi", CreerVariables()));
             CheckVie();
         }

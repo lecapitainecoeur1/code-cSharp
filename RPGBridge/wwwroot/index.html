@@ -7,7 +7,7 @@
 <title>RPG</title>
 <style>
   html, body { height: 100%; margin: 0; background: #0d1117; color: #c9d1d9; font-family: ui-monospace, Menlo, Consolas, monospace; }
-  #app { display: flex; flex-direction: column; height: 100%; max-width: 900px; margin: 0 auto; padding: 8px; box-sizing: border-box; }
+  #app { display: flex; flex-direction: column; height: 100%; max-width: 1800; margin: 0 auto; padding: 8px; box-sizing: border-box; }
   #out { flex: 1; overflow-y: auto; white-space: pre-wrap; word-break: break-word; background: #010409; border: 1px solid #30363d; border-radius: 6px; padding: 10px; }
   #bar { display: flex; gap: 6px; margin-top: 8px; }
   #in { flex: 1; background: #010409; color: inherit; border: 1px solid #30363d; border-radius: 6px; padding: 8px; font: inherit; }
@@ -15,14 +15,23 @@
   button.alt { background: #30363d; }
   #status { font-size: 12px; margin-top: 4px; color: #8b949e; }
 
-  /* ===== PALETTE : chaque nouvelle ligne prend la couleur suivante, puis ça recommence ===== */
+  /* ===== COULEURS PAR TYPE DE LIGNE (modifie les codes #... ici) ===== */
   .ln { min-height: 1.2em; }
-  .l0 { color: #58a6ff; } /* bleu   */
-  .l1 { color: #e3b341; } /* jaune  */
-  .l2 { color: #3fb950; } /* vert   */
-  .l3 { color: #bc8cff; } /* violet */
-  .l4 { color: #f85149; } /* rouge  */
-  .l5 { color: #39c5cf; } /* cyan   */
+  .c-attack   { color: #f85149; }                       /* ton attaque             : rouge        */
+  .c-enemyatk { color: #ff9e64; }                       /* l'ennemi te frappe      : orange       */
+  .c-warn     { color: #ff79c6; font-weight: bold; }    /* attaque puissante       : rose, gras   */
+  .c-miss     { color: #6e7681; }                       /* attaque / fuite ratée   : gris foncé   */
+  .c-block    { color: #a5d6ff; }                       /* blocage                 : bleu clair   */
+  .c-heal     { color: #3fb950; }                       /* fuite réussie, soins    : vert         */
+  .c-win      { color: #e3b341; font-weight: bold; }    /* victoire, niveau sup.   : jaune, gras  */
+  .c-lose     { color: #fff; background: #da3633; }     /* défaite                 : fond rouge   */
+  .c-enemy    { color: #d29922; }                       /* infos de l'ennemi       : or sombre    */
+  .c-info     { color: #bc8cff; }                       /* tes stats, ton tour     : violet       */
+  .c-menu     { color: #39c5cf; }                       /* menus et choix          : cyan         */
+  .c-prompt   { color: #8b949e; }                       /* "Ton choix:", pseudo    : gris         */
+  .c-narr     { color: #9aa7b8; font-style: italic; }   /* histoire, dialogues     : gris italique*/
+  .c-err      { color: #ff7b72; font-weight: bold; }    /* erreurs                 : rouge vif    */
+  .c-cmd      { color: #fff; font-weight: bold; }       /* ce que tu tapes         : blanc, gras  */
 </style>
 </head>
 <body>
@@ -42,9 +51,39 @@
   const statusEl = document.getElementById('status');
   let next = 0;
 
-  // Nombre de couleurs dans la palette (l0 ... l5 dans le CSS).
-  const PALETTE_SIZE = 6;
-  let colorIndex = 0; // couleur de la prochaine ligne
+  // ===== RÈGLES : la première qui correspond gagne (l'ORDRE COMPTE) =====
+  // [expression régulière, classe CSS]. Les mots viennent de ton lang/fr.json.
+  // Les lignes qui ne correspondent à aucune règle gardent la couleur normale.
+  const rules = [
+    // Erreurs
+    [/\[ERREUR\]|entre un nombre|erreur|error/i,                   'c-err'],
+    // Questions posées au joueur ("Ton choix:", pseudo)
+    [/^\s*ton choix|quel est ton pseudo/i,                         'c-prompt'],
+    // Menus (doivent passer AVANT les règles "attaque", "potion", etc.)
+    [/\d\s*=|tu as (deux|trois|quatre) (options|choix)|veut tu recommencer/i, 'c-menu'],
+    // Fin de combat
+    [/tu as perdu/i,                                               'c-lose'],
+    [/est mort|tu as gagn|mont. de niveau/i,                       'c-win'],
+    // Combat
+    [/attaque puissante/i,                                         'c-warn'],
+    [/pas reussi/i,                                                'c-miss'],
+    [/te frappe/i,                                                 'c-enemyatk'],
+    [/\btu frappe\b/i,                                             'c-attack'],
+    [/bloquer/i,                                                   'c-block'],
+    [/enfuir|regagne de la vie/i,                                  'c-heal'],
+    // Infos
+    [/est devant toi|pv et fait/i,                                 'c-enemy'],
+    [/^\s*bienvenue|c'est ton tour/i,                              'c-info'],
+    // Histoire et dialogues
+    [/^\s*(voix|femme|homme|infirmi)|tu ouvre les yeux/i,          'c-narr'],
+    // Messages système entre crochets
+    [/^\s*\[.*\]\s*$|arrêté/i,                                     'c-sys'],
+  ];
+
+  function classify(text) {
+    for (const [re, cls] of rules) if (re.test(text)) return cls;
+    return '';
+  }
 
   // Retire les codes ANSI (couleurs, curseur) qui s'afficheraient en texte brut.
   const stripAnsi = s => s.replace(/\x1b\[[0-9;?]*[A-Za-z]/g, '');
@@ -52,22 +91,20 @@
   // La dernière ligne (incomplète, par ex. une question sans retour à la ligne)
   // vit dans "live" ; les lignes terminées sont insérées avant.
   const live = document.createElement('div');
-  live.className = 'ln l0';
+  live.className = 'ln';
   out.appendChild(live);
   let pending = '';
 
-  function addLine(text) {
+  function addLine(text, cls) {
     const div = document.createElement('div');
-    div.className = 'ln l' + colorIndex;
+    div.className = 'ln ' + (cls ?? classify(text));
     div.textContent = text;
     out.insertBefore(div, live);
-    // Les lignes vides ne consomment pas de couleur.
-    if (text.trim() !== '') colorIndex = (colorIndex + 1) % PALETTE_SIZE;
   }
 
   function updateLive() {
     live.textContent = pending;
-    live.className = 'ln l' + colorIndex; // aura la couleur qu'elle gardera une fois terminée
+    live.className = 'ln ' + classify(pending);
   }
 
   function pushText(text) {
@@ -81,7 +118,6 @@
   function clearOut() {
     out.replaceChildren(live);
     pending = '';
-    colorIndex = 0;
     updateLive();
   }
 
@@ -107,7 +143,7 @@
     const cmd = input.value;
     input.value = '';
     // Si une question attend sur la ligne en cours, la réponse s'y colle ; sinon "> commande".
-    addLine(pending ? pending + cmd : '> ' + cmd);
+    addLine(pending ? pending + cmd : '> ' + cmd, 'c-cmd');
     pending = '';
     updateLive();
     out.scrollTop = out.scrollHeight;
@@ -119,10 +155,10 @@
       });
       if (!r.ok) {
         const e = await r.json().catch(() => ({}));
-        addLine('[' + (e.error || 'Erreur') + ']');
+        addLine('[' + (e.error || 'Erreur') + ']', 'c-err');
       }
     } catch {
-      addLine('[Envoi impossible]');
+      addLine('[Envoi impossible]', 'c-err');
     }
     input.focus();
   }

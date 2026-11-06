@@ -14,8 +14,10 @@
     "infosTour" : "C'est ton tour. Tu as {joueur1.vie} pv\nLe {Ennemy.nom} a {Ennemy.vie} pv et fait {Ennemy.degats} degats",
     "tour": "Tu as trois options:\n1 = choisir une attaque, 2 = bloquer une partie des degats et faire {attaqueFaible} degats, 3 = ouvir l'inventaire, 4 = tenter de fuir",
     "choixAttaque": "Tu as trois choix disponibles: \n1 = attaquer et faire {joueur1.force} degats; 2 = attaquer avec des chances de fail mais faire {joueur1.degats} degats, 3 = revenir au menu d'avant",
+    "infosInventaire": "Tu as {potions} potions",
     "inventaire": "Tu as deux choix: \n1 = utiliser une potion et gagner {soins} pv, 2 = revenir au menu d'avant",
-    
+
+    "pasPotions": "Tu n'as pas de potions",
     "blocage": "Tu arrive a bloquer une partie des degats",
     "attaqueJoueur": "Tu frappe {Ennemy.nom} il perd de la vie",
     "attaqueEnnemi": "{Ennemy.nom} te frappe",

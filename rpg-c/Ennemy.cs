@@ -67,4 +67,8 @@ public class Ennemy
     {
         return vie > 0;
     }
+    public void PrendreDegats(int degats)
+    {
+        vie -= degats;
+    }
 }
