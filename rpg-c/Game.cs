@@ -40,6 +40,7 @@ var variables = new Dictionary<string, string>{
 //Console.WriteLine(lang.Get("narration2", variables));
 Joueur joueur1 = new Joueur(20, 4, 0, 10, 1, 0);
 Combat combat = new Combat(rnd, pseudoJoueur, joueur1);
+Shop shop = new Shop();
 
 bool wentContinue = true;
 while(wentContinue){
@@ -49,6 +50,10 @@ while(wentContinue){
     if (restart == "1")
     {
         
+    }
+    else if (restart == "2")
+    {
+        shop.OuvrirShop(joueur1, combat);
     }
     else
     {

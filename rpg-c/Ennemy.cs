@@ -4,6 +4,7 @@ public class Ennemy
     public int vie;
     public int degats;
     public int expDrop;
+    public int monaieDrop;
 
     public Ennemy(string unNom, int nbVie, int nbDegats, int nbExpDrop)
     {
@@ -18,6 +19,7 @@ public class Ennemy
         vie = 18;
         degats = 3;
         expDrop = 5;
+        monaieDrop = 2;
     }
     private void Orc()
     {
@@ -25,12 +27,14 @@ public class Ennemy
         vie = 40;
         degats = 6;
         expDrop = 10;
+        monaieDrop = 4;
     }
     private void Troll(){
         nom = "Troll";
         vie = 80;
         degats = 12;
         expDrop = 20;
+        monaieDrop = 8;
     }
     public Ennemy(Joueur joueur, Random rnd)
     {

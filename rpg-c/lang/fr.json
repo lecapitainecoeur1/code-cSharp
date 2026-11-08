@@ -15,7 +15,7 @@
     "tour": "Tu as trois options:\n1 = choisir une attaque, 2 = bloquer une partie des degats et faire {attaqueFaible} degats, 3 = ouvir l'inventaire, 4 = tenter de fuir",
     "choixAttaque": "Tu as trois choix disponibles: \n1 = attaquer et faire {joueur1.force} degats; 2 = attaquer avec des chances de fail mais faire {joueur1.degats} degats, 3 = revenir au menu d'avant",
     "infosInventaire": "Tu as {potions} potions",
-    "inventaire": "Tu as deux choix: \n1 = utiliser une potion et gagner {soins} pv, 2 = revenir au menu d'avant",
+    "inventaire": "Tu as deux choix: \n1 = utiliser une potion et gagner {soins} pv, 2 = revenir au menu precedent",
 
     "pasPotions": "Tu n'as pas de potions",
     "blocage": "Tu arrive a bloquer une partie des degats",
@@ -26,6 +26,10 @@
 
     "fuite": "Tu reussi a t'enfuir, tu rentre chez toi et tu t'endort tu regagne de la vie",
     "fuiteLoupe": "tu n'a pas reussi a fuir...",
+
+    "shop" : "Bienvenue dans le shop ici tu peut 1 = choisir quelque chose a acheter, 2 = retourner combattre, 3 = quitter",
+    "achatShop" : "Tu as {coins} coins. Que veut tu acheter: 1 = potions pour 4 coins, 2 = revenir au menu precedent",
+    "achats" : "merci pour votre achat",
 
     "perdu": "Tu as perdu!",
     "gagne": "{Ennemy.nom} est mort. Tu as gagné!",

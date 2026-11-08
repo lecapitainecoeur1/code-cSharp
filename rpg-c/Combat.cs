@@ -82,7 +82,7 @@ public class Combat
                 Console.WriteLine(lang.Get("gagne", CreerVariables()));
                 joueur1.potions++; 
                 int lastLevel = joueur1.lvl;
-                joueur1.GagnerExp(ennemy.expDrop);
+                joueur1.GagnerExp(ennemy.expDrop, ennemy.monaieDrop);
                 if (lastLevel != joueur1.lvl)
                 {
                     Console.WriteLine(lang.Get("lvlUp"));

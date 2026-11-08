@@ -14,6 +14,7 @@ public class Joueur
     public int soins;
     private int reductionDegats;
     private int attaqueEnnemiBonnus;
+    public int monaie;
 
     public Joueur(int nbVie, int nbForce, int nbExp, int nbLvlCapExp, int nbLvl, int nbPotion)
     {
@@ -39,10 +40,12 @@ public class Joueur
         return vie > 0;
     }
 
-    public void GagnerExp(int experience)
+    public void GagnerExp(int experience, int monaieDrop)
     {
         exp += experience;
         expAvantLvlUp = lvlCapExp - exp;
+        monaie += monaieDrop;
+        Console.WriteLine("+2 coins");
         while (exp >= lvlCapExp)
         {
             LvlUp();
