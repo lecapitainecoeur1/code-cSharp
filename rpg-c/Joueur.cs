@@ -15,7 +15,7 @@ public class Joueur
     private int reductionDegats;
     private int attaqueEnnemiBonnus;
     public int monaie;
-    int forceDegats;
+    int ajoutDegats;
 
     public Joueur(int nbVie, int nbForce, int nbExp, int nbLvlCapExp, int nbLvl, int nbPotion, int nbMonaie)
     {
@@ -76,8 +76,8 @@ public class Joueur
         {
             attaqueEnnemiBonnus = 150;
         }
-        forceDegats = degatsPrit * reductionDegats * attaqueEnnemiBonnus;
-        vie -= forceDegats / 10000;
+        ajoutDegats = degatsPrit * reductionDegats * attaqueEnnemiBonnus;
+        vie -= ajoutDegats / 10000;
         reductionDegats = 100;
         attaqueEnnemiBonnus = 100;
     }
