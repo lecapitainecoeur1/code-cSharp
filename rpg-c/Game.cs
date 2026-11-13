@@ -38,25 +38,39 @@ var variables = new Dictionary<string, string>{
 };
 //Console.WriteLine(lang.Get("narration"));
 //Console.WriteLine(lang.Get("narration2", variables));
-Joueur joueur1 = new Joueur(20, 4, 0, 10, 1, 0);
+Joueur joueur1 = new Joueur(20, 4, 0, 10, 1, 0, 0);
 Combat combat = new Combat(rnd, pseudoJoueur, joueur1);
 Shop shop = new Shop();
 
 bool wentContinue = true;
 while(wentContinue){
-    combat.LancerCombats();
-    Console.WriteLine(lang.Get("recommencer"));
+    string fin = combat.LancerCombats();
     string restart = Console.ReadLine();
-    if (restart == "1")
+    if (fin == "ennemyMort" || fin == "fuite")
     {
-        
+        if (restart == "1")
+        {
+            
+        }
+        else if (restart == "2")
+        {
+            shop.OuvrirShop(joueur1, combat);
+        }
+        else
+        {
+            Environment.Exit(0);
+        }    
     }
-    else if (restart == "2")
+    else if (fin == "joueurMort")
     {
-        shop.OuvrirShop(joueur1, combat);
+        if (restart == "1")
+        {
+            joueur1.resetJoueur();
+        }
+        else
+        {
+            Environment.Exit(0);
+        }
     }
-    else
-    {
-        Environment.Exit(0);
-    }
+    
 }

@@ -6,6 +6,7 @@ public class Combat
     Random rnd;
     string pseudoJoueur;
     Joueur joueur1;
+    string retour;
 
     public Combat(Random rnd1, string nomJoueur, Joueur joueur){
         rnd = rnd1;
@@ -14,7 +15,7 @@ public class Combat
         lang.Load(config.language ?? "en");
     }
 
-    public void LancerCombats(){
+    public string LancerCombats(){
 
         bool finCombat = false;
 
@@ -68,6 +69,7 @@ public class Combat
 
         bool bloque = false;
         bool strongEnnemyAttack = false;
+        retour = "0";
 
         void CheckVie()
         {
@@ -75,7 +77,8 @@ public class Combat
             {
                 Console.WriteLine(lang.Get("perdu"));
                 finCombat = true;
-                joueur1 = new Joueur(20, 4, 0, 10, 1, 0);
+                Console.WriteLine(lang.Get("recommencerJoueurMort"));
+                retour = "joueurMort";
             }
             else if (!ennemy.enVie())
             {
@@ -88,6 +91,8 @@ public class Combat
                     Console.WriteLine(lang.Get("lvlUp"));
                 }
                 finCombat = true;
+                Console.WriteLine(lang.Get("recommencerEnnemyMort"));
+                retour = "ennemyMort";
             }
             if (joueur1.vie > joueur1.maxVie)
             {
@@ -96,7 +101,7 @@ public class Combat
         }
         void PlayerTurn()
         {
-            if (ennemy.nom == "orc")
+            if (ennemy.nom == "Orc")
             {
                 if (rnd.Next(0, 100) < 40)
                 {
@@ -176,6 +181,8 @@ public class Combat
                 {
                     finCombat = true;
                     Console.WriteLine(lang.Get("fuite"));
+                    retour = "fuite";
+                    Console.WriteLine(lang.Get("recommencerEnnemyMort"));
                     joueur1.vie = joueur1.maxVie;
                 }   
                 else
@@ -200,5 +207,6 @@ public class Combat
                 EnnemyTurn();
             }
         }
+        return retour;
     }
 }

@@ -15,8 +15,9 @@ public class Joueur
     private int reductionDegats;
     private int attaqueEnnemiBonnus;
     public int monaie;
+    int forceDegats;
 
-    public Joueur(int nbVie, int nbForce, int nbExp, int nbLvlCapExp, int nbLvl, int nbPotion)
+    public Joueur(int nbVie, int nbForce, int nbExp, int nbLvlCapExp, int nbLvl, int nbPotion, int nbMonaie)
     {
         // actualisation des variables
         vie = nbVie;
@@ -33,6 +34,7 @@ public class Joueur
         soins = maxVie * 25 / 100;
         reductionDegats = 1;
         attaqueEnnemiBonnus = 1;
+        monaie = nbMonaie;
     }
 
     public bool enVie()
@@ -45,7 +47,6 @@ public class Joueur
         exp += experience;
         expAvantLvlUp = lvlCapExp - exp;
         monaie += monaieDrop;
-        Console.WriteLine("+2 coins");
         while (exp >= lvlCapExp)
         {
             LvlUp();
@@ -69,14 +70,25 @@ public class Joueur
     {
         if (bloque)
         {
-            reductionDegats = 50 / 100;
+            reductionDegats = 50 ;
         }
         else if (strongEnnemyAttack)
         {
-            attaqueEnnemiBonnus = 150/100;
+            attaqueEnnemiBonnus = 150;
         }
-        vie -= degatsPrit * reductionDegats * attaqueEnnemiBonnus;
-        reductionDegats = 1;
-        attaqueEnnemiBonnus = 1;
+        forceDegats = degatsPrit * reductionDegats * attaqueEnnemiBonnus;
+        vie -= forceDegats / 10000;
+        reductionDegats = 100;
+        attaqueEnnemiBonnus = 100;
+    }
+    public void resetJoueur()
+    {
+        vie = 20;
+        force = 4;
+        exp = 0;
+        lvlCapExp = 10;
+        lvl = 1;
+        potions = 0;
+        monaie = 0;
     }
 }

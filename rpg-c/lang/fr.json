@@ -27,11 +27,13 @@
     "fuite": "Tu reussi a t'enfuir, tu rentre chez toi et tu t'endort tu regagne de la vie",
     "fuiteLoupe": "tu n'a pas reussi a fuir...",
 
-    "shop" : "Bienvenue dans le shop ici tu peut 1 = choisir quelque chose a acheter, 2 = retourner combattre, 3 = quitter",
-    "achatShop" : "Tu as {coins} coins. Que veut tu acheter: 1 = potions pour 4 coins, 2 = revenir au menu precedent",
+    "shop" : "Bienvenue dans le shop ici tu peut:\n1 = choisir quelque chose a acheter, 2 = retourner combattre, 3 = quitter",
+    "achatShop" : "Tu as {coins} coins. Que veut tu acheter:\n1 = potions pour 4 coins, 2 = revenir au menu precedent",
     "achats" : "merci pour votre achat",
+    "pasMonaie" : "Tu n'a pas assez de coins",
 
     "perdu": "Tu as perdu!",
     "gagne": "{Ennemy.nom} est mort. Tu as gagné!",
-    "recommencer": "Veut tu recommencer? 1 = oui; 2 = non"
+    "recommencerJoueurMort": "Veut tu recommencer? 1 = oui; 2 = non",
+    "recommencerEnnemyMort" : "Veut tu recommencer? 1 = oui; 2 = aller dans le shop, 3 = non"
 }

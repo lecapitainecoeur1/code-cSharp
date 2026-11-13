@@ -4,4 +4,4 @@ narration: retrouver la memoire mais uniquement pour ses amis aventurier le rest
 
 rendre l'attaque de base plus interressante
 
-si le joueur s'echappe il regagne sa vie (ref narration "le joueur rentre chez lui se repose et regagne sa vie")
+si le joueur s'echappe il regagne sa vie (ref narration "le joueur rentre chez lui se repose et regagne sa vie") mais ne peut pas s'echapper tout le temps (uniquement au premier etage)
