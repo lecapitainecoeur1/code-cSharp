@@ -32,8 +32,8 @@ public class Joueur
         degats = force * 175/100;
         attaqueFaible = force * 25/100;
         soins = maxVie * 25 / 100;
-        reductionDegats = 1;
-        attaqueEnnemiBonnus = 1;
+        reductionDegats = 100;
+        attaqueEnnemiBonnus = 100;
         monaie = nbMonaie;
     }
 
