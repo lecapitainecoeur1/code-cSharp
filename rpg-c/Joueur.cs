@@ -27,14 +27,14 @@ public class Joueur
         lvlCapExp = nbLvlCapExp;
         lvl = nbLvl;
         potions = nbPotion;
+        monaie = nbMonaie;
+        reductionDegats = 100;
+        attaqueEnnemiBonnus = 100;
         niveauSuivant = lvl + 1;
         expAvantLvlUp = lvlCapExp - exp;
         degats = force * 175/100;
         attaqueFaible = force * 25/100;
         soins = maxVie * 25 / 100;
-        reductionDegats = 100;
-        attaqueEnnemiBonnus = 100;
-        monaie = nbMonaie;
     }
 
     public bool enVie()

@@ -1,12 +1,15 @@
 public class Combat
 {
-    LanguageService lang = new LanguageService();
+    LanguageManagementHandMade lang = new LanguageManagementHandMade();
+
     Config config = Config.Load();
     
     Random rnd;
     string pseudoJoueur;
     Joueur joueur1;
     string retour;
+
+    
 
     public Combat(Random rnd1, string nomJoueur, Joueur joueur){
         rnd = rnd1;

@@ -1,6 +1,6 @@
 public class Shop
 {
-    LanguageService lang = new LanguageService();
+    LanguageManagementHandMade lang = new LanguageManagementHandMade();
     Config config = Config.Load();
     public Shop()
     {

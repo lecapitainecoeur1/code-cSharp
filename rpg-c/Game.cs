@@ -1,5 +1,5 @@
 ﻿Random rnd = new Random();
-LanguageService lang = new LanguageService();
+LanguageManagementHandMade lang = new LanguageManagementHandMade();
 Config config = Config.Load();
 
 if (config.language != "fr" && config.language != "en")
@@ -72,5 +72,4 @@ while(wentContinue){
             Environment.Exit(0);
         }
     }
-    
 }
