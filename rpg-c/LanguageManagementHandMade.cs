@@ -15,8 +15,6 @@ public class LanguageManagementHandMade
         }
         else
         {
-            Console.WriteLine("langue trouvé");
-            Console.WriteLine(path);
             string json = File.ReadAllText(path);
             translations = JsonSerializer.Deserialize<Dictionary<string, string>>(json);
         }
