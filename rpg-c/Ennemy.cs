@@ -24,16 +24,16 @@ public class Ennemy
     private void Orc()
     {
         nom = "Orc";
-        vie = 40;
-        degats = 6;
-        expDrop = 10;
+        vie = 34;
+        degats = 5;
+        expDrop = 9;
         monaieDrop = 4;
     }
     private void Troll(){
         nom = "Troll";
-        vie = 80;
-        degats = 12;
-        expDrop = 20;
+        vie = 60;
+        degats = 9;
+        expDrop = 18;
         monaieDrop = 8;
     }
     public Ennemy(Joueur joueur, Random rnd)

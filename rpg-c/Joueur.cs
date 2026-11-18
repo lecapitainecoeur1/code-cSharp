@@ -15,9 +15,11 @@ public class Joueur
     private int reductionDegats;
     private int attaqueEnnemiBonnus;
     public int monaie;
+    public int endurance;
+    public int enduranceRequiseAttaque2;
     int ajoutDegats;
 
-    public Joueur(int nbVie, int nbForce, int nbExp, int nbLvlCapExp, int nbLvl, int nbPotion, int nbMonaie)
+    public Joueur(int nbVie, int nbForce, int nbExp, int nbLvlCapExp, int nbLvl, int nbPotion, int nbMonaie, int nbEndurance)
     {
         // actualisation des variables
         vie = nbVie;
@@ -28,8 +30,10 @@ public class Joueur
         lvl = nbLvl;
         potions = nbPotion;
         monaie = nbMonaie;
+        endurance = nbEndurance;
         reductionDegats = 100;
         attaqueEnnemiBonnus = 100;
+        enduranceRequiseAttaque2 = 5;
         niveauSuivant = lvl + 1;
         expAvantLvlUp = lvlCapExp - exp;
         degats = force * 175/100;
@@ -59,7 +63,7 @@ public class Joueur
         lvl += 1;
         force += 1; // valeur a modifier pour augmenter proportionnelement
         maxVie += 2; // valeur a modifier pour augmenter proportionnelement
-        lvlCapExp += lvlCapExp * 50 / 100;
+        lvlCapExp += lvlCapExp * 40 / 100;
         niveauSuivant += 1;
         expAvantLvlUp = lvlCapExp - exp;
         vie = maxVie;

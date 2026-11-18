@@ -38,7 +38,7 @@ var variables = new Dictionary<string, string>{
 };
 //Console.WriteLine(lang.Get("narration"));
 //Console.WriteLine(lang.Get("narration2", variables));
-Joueur joueur1 = new Joueur(20, 4, 0, 10, 1, 0, 0);
+Joueur joueur1 = new Joueur(20, 4, 0, 10, 1, 0, 0, 10);
 Combat combat = new Combat(rnd, pseudoJoueur, joueur1);
 Shop shop = new Shop();
 

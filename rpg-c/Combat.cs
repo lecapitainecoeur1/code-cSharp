@@ -53,6 +53,8 @@ public class Combat
                     { "joueur1.vie", joueur1.vie.ToString() },
                     { "joueur1.force", joueur1.force.ToString() },
                     { "joueur1.degats", joueur1.degats.ToString() },
+                    { "nbEndurance", joueur1.enduranceRequiseAttaque2.ToString()},
+                    { "endurance", joueur1.endurance.ToString()},
                     { "attaqueFaible", joueur1.attaqueFaible.ToString() },
                     { "Ennemy.nom", ennemy.nom },
                     { "Ennemy.vie", ennemy.vie.ToString() },
@@ -131,16 +133,25 @@ public class Combat
                 }
                 else if (choixAttack == 2)
                 {
-                    if (rnd.Next(0, 100) < 70)
+                    if (joueur1.endurance > 0)
                     {
-                        ennemy.PrendreDegats(joueur1.degats);
-                        Console.WriteLine(lang.Get("attaqueJoueur", CreerVariables()));
+                        if (rnd.Next(0, 100) < 70)
+                        {
+                            ennemy.PrendreDegats(joueur1.degats);
+                            Console.WriteLine(lang.Get("attaqueJoueur", CreerVariables()));
+                            joueur1.endurance -= joueur1.enduranceRequiseAttaque2;
+                        }
+                        else
+                        {
+                            Console.WriteLine(lang.Get("attaqueLoupe"));
+                        }
+                        CheckVie();
                     }
                     else
                     {
-                        Console.WriteLine(lang.Get("attaqueLoupe"));
+                        Console.WriteLine(lang.Get("pasEndurance"));
+                        goto debutTour;
                     }
-                    CheckVie();
                 }
                 else if (choixAttack == 3)
                 {

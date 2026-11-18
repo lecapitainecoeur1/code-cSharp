@@ -7,13 +7,13 @@
     "choix" : "Ton choix: ",
     "reponseIncorrecte" : "Entre un nombre entre {min} et {max}.",
     
-    "joueurStats": "Bienvenue {pseudo}. Tu as {exp} exp et il te faut encore {expRestant} exp pour passer au niveau {niveau}.",
+    "joueurStats": "Bienvenue {pseudo}. Tu as {exp} exp, {endurance} endurance et il te faut encore {expRestant} exp pour passer au niveau {niveau}.",
     "ennemiStats": "Un {Ennemy.nom} est devant toi. Si tu le tue tu recevra {expDrop} exp",
     "lvlUp": "Tu est monté de niveau tu gagne +1 en force et +2 en vie", 
     
-    "infosTour" : "C'est ton tour. Tu as {joueur1.vie} pv\nLe {Ennemy.nom} a {Ennemy.vie} pv et fait {Ennemy.degats} degats",
+    "infosTour" : "C'est ton tour. Tu as {joueur1.vie} pv, {endurance} endurance\nLe {Ennemy.nom} a {Ennemy.vie} pv et fait {Ennemy.degats} degats",
     "tour": "Tu as trois options:\n1 = choisir une attaque, 2 = bloquer une partie des degats et faire {attaqueFaible} degats, 3 = ouvir l'inventaire, 4 = tenter de fuir",
-    "choixAttaque": "Tu as trois choix disponibles: \n1 = attaquer et faire {joueur1.force} degats; 2 = attaquer avec des chances de fail mais faire {joueur1.degats} degats, 3 = revenir au menu d'avant",
+    "choixAttaque": "Tu as trois choix disponibles: \n1 = attaquer et faire {joueur1.force} degats; 2 = attaquer avec 30% de chance de louper l'attaque mais faire {joueur1.degats} degats et utilise {nbEndurance} endurance, 3 = revenir au menu d'avant",
     "infosInventaire": "Tu as {potions} potions",
     "inventaire": "Tu as deux choix: \n1 = utiliser une potion et gagner {soins} pv, 2 = revenir au menu precedent",
 
