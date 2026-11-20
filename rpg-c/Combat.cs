@@ -129,6 +129,7 @@ public class Combat
                 {
                     ennemy.PrendreDegats(joueur1.force);
                     Console.WriteLine(lang.Get("attaqueJoueur", CreerVariables()));
+                    joueur1.endurance += 5;
                     CheckVie();
                 }
                 else if (choixAttack == 2)

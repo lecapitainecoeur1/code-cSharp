@@ -8,10 +8,14 @@
   "ennemiStats": "A {Ennemy.nom} is in front of you if ou kill him you will receive {expDrop} exp",
   "lvlUp": "you reach the next level! you get +1 in strong and +2 in life",
 
-  "infoTour" : "It's your turn. You have {joueur1.vie} hp\n{Ennemy.nom} has {Ennemy.vie} hp and he make {Ennemy.degats} damage",
+  "infosTour" : "It's your turn. You have {joueur1.vie} hp and {endurance} endurance\n{Ennemy.nom} has {Ennemy.vie} hp and he make {Ennemy.degats} damage",
   "tour": "You have three options:\n1 = choose an attack, 2 = block a part of the damage and make {attaqueFaible} damage, 3 = open your inventory, 4 = try to flee",
+  "pasEndurance": "you don't have enough endurance, you can gain it with doing the first attack, back to the action menu",
   "choixAttaque": "You have three options available: \n1 = attack and make {joueur1.force} damage, 2 = attack with some chance to fail but make {joueur1.degats} damage, 3 = return to the previous menu",
+  "infosInvenaire": "You have {potions} potions",
+  "invetaire": "You have two choice: 1 = use a potion and gain {soins} hp, 2 = back to the previous menu",
 
+  "pasPotion" : "You don't have enough potion",
   "blocage": "You block part of the enemy attack",
   "attaqueJoueur": "you hit {Ennemy.nom} he loses hp",
   "attaqueEnnemi": "{Ennemy.nom} hits you",
@@ -21,7 +25,13 @@
   "fuite": "You flee",
   "fuiteLoupe": "You fail to flee",
 
+  "shop": "welcome to the shop here you can:\n1 = choose an object on the shop to buy, 2 = back to fight, 3 = quit the game",
+  "achatShop": "You have {coins} coins. What do you wnet to buy:\n1 = buy a potion for 4 coins, 2 = back to the previous menu",
+  "achats": "Thank you for your buy",
+  "pasMonaie": "You don't have enough coins",
+
   "perdu": "You are dead",
   "gagne": "{Ennemy.nom} is dead. You win",
-  "recommencer": "Do you want to restart? 1 = yes; 2 = no"
+  "recommencerJoueurMort": "Do you want to restart? 1 = yes; 2 = exit the game",
+  "recommencerEnnemyMort": "Do you went to restart? 1 = yes, 2 = enter to the shop, 3 = exit the game"
 } 

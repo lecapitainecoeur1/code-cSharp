@@ -33,7 +33,7 @@ public class Joueur
         endurance = nbEndurance;
         reductionDegats = 100;
         attaqueEnnemiBonnus = 100;
-        enduranceRequiseAttaque2 = 5;
+        enduranceRequiseAttaque2 = 10;
         niveauSuivant = lvl + 1;
         expAvantLvlUp = lvlCapExp - exp;
         degats = force * 175/100;

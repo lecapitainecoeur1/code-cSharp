@@ -2,9 +2,9 @@
 LanguageManagementHandMade lang = new LanguageManagementHandMade();
 Config config = Config.Load();
 
-if (config.language != "fr" && config.language != "en")
-{
-    Console.Write("Choose language (fr/en): ");
+//if (config.language != "fr" && config.language != "en")
+//{
+    Console.Write("Choose a language (fr/en): ");
     string? choice = Console.ReadLine();
     if (string.IsNullOrEmpty(choice)){
         choice = "en";
@@ -16,11 +16,11 @@ if (config.language != "fr" && config.language != "en")
     config.language = choice;
     config.Save();
     lang.Load(config.language ?? "en");
-}
+/*}
 else
 {
     lang.Load(config.language ?? "en");
-}
+}*/
 string langue = config.language;
 Console.WriteLine(lang.Get("demandePseudo"));
 string? pseudoJoueur = Console.ReadLine();
@@ -38,7 +38,7 @@ var variables = new Dictionary<string, string>{
 };
 //Console.WriteLine(lang.Get("narration"));
 //Console.WriteLine(lang.Get("narration2", variables));
-Joueur joueur1 = new Joueur(20, 4, 0, 10, 1, 0, 0, 10);
+Joueur joueur1 = new Joueur(20, 4, 0, 10, 1, 0, 0, 20);
 Combat combat = new Combat(rnd, pseudoJoueur, joueur1);
 Shop shop = new Shop();
 
