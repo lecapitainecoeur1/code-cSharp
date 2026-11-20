@@ -134,7 +134,7 @@ public class Combat
                 }
                 else if (choixAttack == 2)
                 {
-                    if (joueur1.endurance > 0)
+                    if (joueur1.endurance >= 10)
                     {
                         if (rnd.Next(0, 100) < 70)
                         {

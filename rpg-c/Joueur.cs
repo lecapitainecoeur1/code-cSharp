@@ -69,6 +69,7 @@ public class Joueur
         vie = maxVie;
         attaqueFaible = force * 25 / 100;
         degats = force * 150/100;
+        soins = maxVie * 25 / 100;
     }
     public void PrendreDegats(string nomEnnemi, int degatsPrit, bool bloque, bool strongEnnemyAttack)
     {
@@ -88,11 +89,16 @@ public class Joueur
     public void resetJoueur()
     {
         vie = 20;
+        maxVie = 20;
         force = 4;
+        degats = force * 175/100;
+        attaqueFaible = force * 25/100;
         exp = 0;
         lvlCapExp = 10;
         lvl = 1;
+        niveauSuivant = lvl + 1;
         potions = 0;
+        soins = maxVie * 25 / 100;
         monaie = 0;
     }
 }
